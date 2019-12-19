@@ -63,6 +63,6 @@ class Message {
 }
 
 let message = new Message("input_message");
-document.getElementById("info").innerHTML = `Highlighting these:
+document.getElementById("info").innerHTML = `Поиск ищет в тексте эти слова:
     { item: ["Hello", "Hi", "Hi there"] },
     { item: ["I'm Tim", "My name's Tim"] }`;

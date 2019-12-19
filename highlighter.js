@@ -2,6 +2,7 @@ let $container = $(".container");
 let $backdrop = $(".backdrop");
 let $highlights = $(".highlights");
 let $textarea = $("textarea");
+let $variants = $(".variants");
 
 let ua = window.navigator.userAgent.toLowerCase();
 let isIE = !!ua.match(/msie|trident\/7|edge/);
@@ -25,6 +26,15 @@ function applyHighlights(text) {
 function handleInput() {
   let text = $textarea.val();
   let highlightedText = applyHighlights(text);
+
+  if (highlightedText) {
+    $variants.html(`Choose :
+      greeting: ["Hello", "Hi", "Hi there"]
+
+      introduction: ["I'm Tim", "My name's Tim"] 
+    `);
+  }
+
   $highlights.html(highlightedText);
 }
 
