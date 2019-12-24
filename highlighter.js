@@ -2,18 +2,18 @@ let $container = $(".container");
 let $backdrop = $(".backdrop");
 let $highlights = $(".highlights");
 let $textarea = $("textarea");
-let $variants = $(".variants");
+let $stop_words = $(".input_words");
 
 let ua = window.navigator.userAgent.toLowerCase();
 let isIE = !!ua.match(/msie|trident\/7|edge/);
 let isWinPhone = ua.indexOf("windows phone") !== -1;
 let isIOS = !isWinPhone && !!ua.match(/ipad|iphone|ipod/);
 
-function applyHighlights(text) {
-  text = text.replace(/\n$/g, "\n\n").replace(
-    /(Hi|Hello|Hi there|I'm Tim|My name's Tim).*?\b/g, // TODO (import/export from other module) Нужно получать строку из message.matches, там все готово, нужно только ее сюда импортировать
-    "<mark>$&</mark>"
-  );
+function applyHighlights(text, stop_words) {
+  // converts the stop_words[], which we enter in input, to the desirable format to fit the regex pattern
+  stop_words = `(${stop_words.split(", ").join("|")}).*?\\b`;
+  let token = new RegExp(stop_words, "g");
+  text = text.replace(/\n$/g, "\n\n").replace(token, "<mark>$&</mark>");
 
   if (isIE) {
     // IE wraps whitespace differently in a div vs textarea, this fixes it
@@ -24,17 +24,9 @@ function applyHighlights(text) {
 }
 
 function handleInput() {
+  let stop_words = $stop_words.val();
   let text = $textarea.val();
-  let highlightedText = applyHighlights(text);
-
-  if (highlightedText) {
-    $variants.html(`Choose :
-      greeting: ["Hello", "Hi", "Hi there"]
-
-      introduction: ["I'm Tim", "My name's Tim"] 
-    `);
-  }
-
+  let highlightedText = applyHighlights(text, stop_words);
   $highlights.html(highlightedText);
 }
 
