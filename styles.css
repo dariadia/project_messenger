@@ -9,8 +9,6 @@
 body {
     margin: 30px;
     background-color: #e7f0f5;
-    display: flex;
-    flex-direction: row;
 }
 
 .container,
@@ -78,4 +76,11 @@ input:focus {
 input {
     border: 2px solid #2483e8;
     height: 30px;
+    width: 300px;
+}
+
+.input {
+    margin: auto;
+    width: 30%;
+    text-align: center;
 }
